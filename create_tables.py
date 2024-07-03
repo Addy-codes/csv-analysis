@@ -1,7 +1,6 @@
 # create_tables.py
 
 from app.database import Base, engine
-from app.models import CSVData
 
 # Drop all tables
 Base.metadata.drop_all(bind=engine)

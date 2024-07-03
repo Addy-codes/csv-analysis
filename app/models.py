@@ -14,7 +14,7 @@ class CSVData(Base):
     Price = Column(Float)
     DLC_count = Column(Integer)
     About_the_game = Column(String)
-    Supported_languages = Column(String)  # Store as a comma-separated string
+    Supported_languages = Column(String)
     Windows = Column(Boolean)
     Mac = Column(Boolean)
     Linux = Column(Boolean)

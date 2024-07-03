@@ -22,12 +22,6 @@ class CSVDataCreate(BaseModel):
     Genres: str
     Tags: str
 
-class CSVDataResponse(CSVDataCreate):
-    id: int
-
-    class Config:
-        orm_mode = True
-
 class FilterModel(BaseModel):
     AppID: Optional[int] = None
     Name: Optional[str] = None
