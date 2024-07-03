@@ -4,6 +4,7 @@ import pandas as pd
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
+from app.models import CSVData
 from app.utils import(
     get_csv_export_link,
     download_csv,
@@ -29,6 +30,8 @@ async def upload_csv(file_url: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"Failed to download CSV file: {str(e)}")
     
     try:
+        db.query(CSVData).delete()
+        db.commit()
         save_csv_to_db(file_path, db)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to save CSV data to database: {str(e)}")
