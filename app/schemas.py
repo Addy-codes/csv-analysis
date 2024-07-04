@@ -1,6 +1,20 @@
 from pydantic import BaseModel
 from typing import Optional, List
 
+class User(BaseModel):
+    username: str
+    email: str
+
+class UserCreate(User):
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    email: str | None = None
+
 class CSVDataCreate(BaseModel):
     AppID: int
     Name: str

@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import CSVData
-from app.schemas import FilterModel
+from app.schemas import FilterModel, User as DBUser
 from typing import Dict, Any
+from app.auth_utils import get_current_user
 
 router = APIRouter()
 
@@ -19,7 +20,8 @@ def add_filter_conditions(query, model, filters: Dict[str, Any]):
 @router.post("/analyze/")
 async def analyze_data(
     filters: FilterModel,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: DBUser = Depends(get_current_user)
 ):
     filters_dict = filters.dict(exclude_unset=True)
 

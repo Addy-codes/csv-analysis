@@ -1,10 +1,10 @@
 import os
 import requests
-import pandas as pd
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import CSVData
+from app.auth_utils import get_current_user
+from app.models import CSVData, User as DBUser
 from app.utils import(
     get_csv_export_link,
     download_csv,
@@ -15,7 +15,7 @@ from app.utils import(
 router = APIRouter()
 
 @router.post("/upload/")
-async def upload_csv(file_url: str, db: Session = Depends(get_db)):
+async def upload_csv(file_url: str, db: Session = Depends(get_db), current_user: DBUser = Depends(get_current_user)):
     try:
         export_link = get_csv_export_link(file_url)
     except ValueError as e:
