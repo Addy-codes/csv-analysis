@@ -9,6 +9,17 @@ from app.auth_utils import get_current_user
 router = APIRouter()
 
 def add_filter_conditions(query, model, filters: Dict[str, Any]):
+    """
+    Adds filter conditions to the query based on the provided filters.
+
+    Args:
+        query: The initial SQLAlchemy query object.
+        model: The SQLAlchemy model class to filter.
+        filters: A dictionary containing filter conditions.
+
+    Returns:
+        The modified query object with the filter conditions applied.
+    """
     for key, value in filters.items():
         column = getattr(model, key)
         if isinstance(value, str):
@@ -23,6 +34,20 @@ async def analyze_data(
     db: Session = Depends(get_db),
     current_user: DBUser = Depends(get_current_user)
 ):
+    """
+    Analyzes data based on the provided filters.
+
+    Args:
+        filters: An instance of FilterModel containing filter conditions.
+        db: The database session dependency.
+        current_user: The currently authenticated user dependency.
+
+    Returns:
+        A list of filtered CSVData records.
+
+    Raises:
+        HTTPException: If no matching records are found.
+    """
     filters_dict = filters.dict(exclude_unset=True)
 
     query = db.query(CSVData)

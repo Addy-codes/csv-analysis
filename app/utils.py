@@ -9,12 +9,33 @@ UPLOAD_DIR = "data"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 def download_csv(file_url: str, file_path: str):
+    """
+    Downloads a CSV file from a given URL and saves it to the specified file path.
+
+    Args:
+        file_url: The URL of the CSV file to download.
+        file_path: The local file path where the CSV file will be saved.
+
+    Raises:
+        requests.RequestException: If the download fails.
+    """
     response = requests.get(file_url)
     response.raise_for_status()
     with open(file_path, 'wb') as f:
         f.write(response.content)
 
 def save_csv_to_db(file_path: str, db: Session):
+    """
+    Reads a CSV file from a specified file path and saves its contents to the database.
+
+    Args:
+        file_path: The local file path of the CSV file to read.
+        db: The SQLAlchemy database session.
+
+    Notes:
+        This function assumes that the CSV file has specific columns that match the
+        CSVData model.
+    """
     data = pd.read_csv(file_path)
     
     for index, row in data.iterrows():
@@ -43,6 +64,18 @@ def save_csv_to_db(file_path: str, db: Session):
     db.commit()
 
 def get_csv_export_link(google_sheets_url: str) -> str:
+    """
+    Generates an export link for a Google Sheets URL to download the sheet as a CSV file.
+
+    Args:
+        google_sheets_url: The URL of the Google Sheets document.
+
+    Returns:
+        The export link for the Google Sheets document.
+
+    Raises:
+        ValueError: If the provided URL is not a valid Google Sheets URL.
+    """
     if 'docs.google.com/spreadsheets' not in google_sheets_url:
         raise ValueError("Invalid Google Sheets URL.")
     file_id = google_sheets_url.split('/d/')[1].split('/')[0]
