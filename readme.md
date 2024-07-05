@@ -9,6 +9,14 @@ The CSV Analyzer is a FastAPI-based web service designed for data analysts to up
 
 The CSV Analyzer is deployed on Render: https://csv-analysis-1f0a.onrender.com/docs
 
+## Screenshots
+
+![image](https://github.com/Addy-codes/csv-analysis/assets/72205091/ed4616b1-3961-4413-a982-8e25310b2db6)
+
+![image](https://github.com/Addy-codes/csv-analysis/assets/72205091/e0d1a3c1-f405-4047-b40c-70c2e0b82d60)
+
+![image](https://github.com/Addy-codes/csv-analysis/assets/72205091/70a7d75d-7746-4fc0-8aac-4a523db5a62d)
+
 ## Features
 
 - **CSV Upload**: Allows users to upload a CSV file and save its contents to an SQLite database.
