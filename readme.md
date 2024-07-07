@@ -83,6 +83,17 @@ After starting the application, you can access the following endpoints:
 - **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
 - **ReDoc UI**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
+### Note
+
+Before using the endpoints, make sure you authorize yourself with a registered email and password:
+- **Sample**:
+  ```json
+  {
+    "username": "addy@gmail.com",
+    "password": "123456"
+  }
+  ```
+
 ### Endpoints
 
 #### Register User
